@@ -537,7 +537,7 @@ form .content .input {
 }
 
 .homework-wrapper .search-create {
-  padding: 0 24px 0 0;
+  padding: 0 24px 12px 0;
 }
 
 #profile-wrapper {
@@ -607,4 +607,99 @@ form .content .input {
 
 #change-password-modal input {
   margin-bottom: 10px;
+}
+
+#find-wrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: wrap;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 24px;
+  background-color: rgb(30, 136, 229);
+}
+
+#find-wrapper #logo {
+  flex: 1;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#logo .logo {
+  font-size: 100px;
+}
+
+#find-wrapper #form {
+  flex: 1;
+}
+
+#form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  border-radius: 16px;
+  background-color: #fff;
+}
+
+#form .title {
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+#form .detail {
+  color: #4E525F;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+#form button {
+  width: 100%;
+  color: #FFFFFF;
+  height: 56px;
+  padding: 16px;
+  border-radius: 8px;
+  border-color: #4CAF50;
+  background-color: #4CAF50;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#form .nav {
+  margin-top: 8px;
+  padding: 16px;
+}
+
+#form .nav p {
+  margin-left: 8px;
+  color: rgb(78, 82, 95);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#form .nav i {
+  color: rgb(78, 82, 95);
+}
+
+#form input {
+  border: 1px solid #ccc;
+  height: 40px;
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+#form input:hover {
+  border: 1px solid black;
 }

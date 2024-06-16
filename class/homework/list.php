@@ -138,7 +138,7 @@
             <a href="../newsfeed.php?course_id=' .$course_id. '" class="item"><i class="fa-solid fa-newspaper"></i> Bảng tin</a>
             '
             ?>
-            <a href="../member.php" class="item"><i class="fa-regular fa-user"></i> Thành viên</a>
+            <a href="../member.php?course_id=<?php echo $course_id?>" class="item"><i class="fa-regular fa-user"></i> Thành viên</a>
             <a href="" class="item current"><i class="fa-regular fa-file-lines"></i> Bài tập</a>
             <a href="" class="item"><i class="fa-solid fa-chart-simple"></i> Bảng điểm</a>
           </div>
@@ -152,7 +152,7 @@
       </div>
 
       <div class="main-content">
-        <div class="title">
+        <div class="title" style="border-bottom: none;">
           Bài tập
         </div>
 
@@ -191,6 +191,5 @@
       </div>
     </div>
   </div>
-  <script src="../asset/script/script.js"></script>
 </body>
 </html>
