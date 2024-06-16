@@ -40,7 +40,7 @@ document.getElementById('close-modal').addEventListener('click', function() {
 window.onclick = function(event) {
   const modal = document.getElementById('edit-modal');
   if (event.target == modal) {
-    modal.style.display = 'none';
+    edit_email_modal = 'none';
   }
 };
 
@@ -63,4 +63,55 @@ document.querySelectorAll('.delete').forEach(button => {
       form.submit();
     }
   });
+});
+
+// Hiển thị modal chỉnh sửa email
+document.getElementById('edit-email-btn').addEventListener('click', function() {
+  document.getElementById('edit-email-modal').style.display = 'flex';
+});
+
+// Đóng modal chỉnh sửa email khi bấm dấu X
+document.getElementById('close-modal').addEventListener('click', function() {
+  document.getElementById('edit-email-modal').style.display = 'none';
+});
+
+// Đóng modal chỉnh sửa email khi bấm bên ngoài
+window.addEventListener('click', function(event) {
+  if (event.target === document.getElementById('edit-email-modal')) {
+    this.document.getElementById('edit-email-modal').style.display = 'none';
+  }
+});
+
+// Hiển thị modal chỉnh sửa mật khẩu
+document.getElementById('change-password-btn').addEventListener('click', function() {
+  document.getElementById('change-password-modal').style.display = 'flex';
+});
+
+// Đóng modal chỉnh sửa email khi bấm dấu X
+document.getElementById('close-change-password-modal').addEventListener('click', function() {
+  document.getElementById('change-password-modal').style.display = 'none';
+});
+
+// Đóng modal chỉnh sửa email khi bấm bên ngoài
+window.addEventListener('click', function(event) {
+  if (event.target === document.getElementById('change-password-modal')) {
+    this.document.getElementById('change-password-modal').style.display = 'none';
+  }
+});
+
+// Hiển thị modal chỉnh sửa Họ tên
+document.getElementById('edit-fullname-btn').addEventListener('click', function() {
+  document.getElementById('edit-fullname-modal').style.display = 'flex';
+});
+
+// Đóng modal chỉnh sửa Họ tên khi bấm dấu X
+document.getElementById('close-edit-fullname-modal').addEventListener('click', function() {
+  document.getElementById('edit-fullname-modal').style.display = 'none';
+});
+
+// Đóng modal chỉnh sửa Họ tên khi bấm bên ngoài
+window.addEventListener('click', function(event) {
+  if (event.target === document.getElementById('edit-fullname-modal')) {
+    this.document.getElementById('edit-fullname-modal').style.display = 'none';
+  }
 });

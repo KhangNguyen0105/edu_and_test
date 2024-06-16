@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   mysqli_set_charset($conn, "utf8mb4");
   $username = $_POST['username'];
-  $password = $_POST['password'];
+  $input_password = $_POST['password'];
 
   // Kiểm tra xem thông tin đăng nhập có tồn tại trong cơ sở dữ liệu không
   $query = "SELECT * FROM users WHERE username = '$username' AND role = 1";
@@ -18,12 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $invalidLogin = false;
   if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_assoc($result);
-    $hashed_password = $row['password']; // Lấy mật khẩu đã mã hoá từ cơ sở dữ liệu
-    // Kiểm tra mật khẩu sử dụng hàm password_verify
-    if (password_verify($password, $hashed_password)) {
+    $password = $row['password']; // Lấy mật khẩu từ cơ sở dữ liệu
+    if ($input_password == $password) {
       $_SESSION['user_id'] = $row['user_id'];
       $_SESSION['username'] = $row['username'];
       $_SESSION['full_name'] = $row['full_name'];
+      $_SESSION['role'] = '1';
+
       // Nếu thông tin hợp lệ, chuyển hướng đến trang class.php
       header("Location: ../class/");
       exit();

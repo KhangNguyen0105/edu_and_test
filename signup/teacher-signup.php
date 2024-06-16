@@ -35,8 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // Chỉ thêm người dùng mới vào cơ sở dữ liệu nếu không có lỗi về email hoặc mật khẩu
       if (!$is_email_exist && $check_confirm_password) {
         // Thêm người dùng mới vào cơ sở dữ liệu
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Mã hoá mật khẩu
-        $insert_query = "INSERT INTO users (username, password, full_name, email, role) VALUES ('$email', '$hashed_password', '$full_name', '$email', 1)";
+        $insert_query = "INSERT INTO users (username, password, full_name, email, role) VALUES ('$email', '$password', '$full_name', '$email', 1)";
         if (mysqli_query($conn, $insert_query)) {
           $registrationSuccess = true;
         } else {

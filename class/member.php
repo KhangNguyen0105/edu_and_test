@@ -166,8 +166,8 @@
             <?php endif; ?>
           </div>
           <div class="list">  
-            <a href="" class="item current"><i class="fa-solid fa-newspaper"></i> Bảng tin</a>
-            <a href="member.php" class="item"><i class="fa-regular fa-user"></i> Thành viên</a>
+            <a href="newsfeed.php" class="item"><i class="fa-solid fa-newspaper"></i> Bảng tin</a>
+            <a href="" class="item current"><i class="fa-regular fa-user"></i> Thành viên</a>
             <?php
               echo '
               <a href="homework/list.php?course_id=' . $course_id . '" class="item"><i class="fa-regular fa-file-lines"></i> Bài tập</a>
