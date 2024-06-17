@@ -633,11 +633,11 @@ form .content .input {
   font-size: 100px;
 }
 
-#find-wrapper #form {
+#find-wrapper .form {
   flex: 1;
 }
 
-#form form {
+.form form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -647,7 +647,7 @@ form .content .input {
   background-color: #fff;
 }
 
-#form .title {
+.form .title {
   margin-bottom: 8px;
   font-weight: bold;
   font-size: 1.25rem;
@@ -655,7 +655,7 @@ form .content .input {
   text-align: center;
 }
 
-#form .detail {
+.form .detail {
   color: #4E525F;
   font-weight: 400;
   font-size: 1rem;
@@ -663,7 +663,7 @@ form .content .input {
   text-align: center;
 }
 
-#form button {
+.form button {
   width: 100%;
   color: #FFFFFF;
   height: 56px;
@@ -676,23 +676,23 @@ form .content .input {
   font-weight: bold;
 }
 
-#form .nav {
+.form .nav {
   margin-top: 8px;
   padding: 16px;
 }
 
-#form .nav p {
+.form .nav p {
   margin-left: 8px;
   color: rgb(78, 82, 95);
   font-size: 14px;
   font-weight: bold;
 }
 
-#form .nav i {
+.form .nav i {
   color: rgb(78, 82, 95);
 }
 
-#form input {
+.form input {
   border: 1px solid #ccc;
   height: 40px;
   margin: 20px 0;
@@ -700,6 +700,53 @@ form .content .input {
   border-radius: 4px;
 }
 
-#form input:hover {
+.form input:hover {
   border: 1px solid black;
 }
+
+.form #class-name {
+  font-weight: bold;
+  font-size: 24px;
+  margin-top: 100px;
+  margin-bottom: 32px;
+}
+
+.form .teacher,
+.form .course_id {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.form .teacher .sub-title,
+.form .course_id .sub-title {
+  margin-left: 0;
+}
+
+.form .teacher .data,
+.form .course_id .data {
+  margin-right: 0;
+}
+
+.form .sub-title {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgb(101, 105, 123);
+}
+
+.form .data {
+  font-weight: 600 !important;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+#back {
+  cursor: pointer;
+}
+/* 
+#class-found {
+  display: none;
+} */
