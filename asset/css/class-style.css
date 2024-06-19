@@ -154,7 +154,7 @@ a {
   text-align: center;
   color: #fff;
   font-weight: bolder;
-  line-height: 50.6px;
+  line-height: 56px;
 }
 
 .search-create a:hover {
@@ -169,6 +169,7 @@ a {
   background-color: #EFEFF5;
   font-size: 16px;
   font-weight: bolder;
+  align-items: center;
 }
 
 .column {
@@ -746,7 +747,11 @@ form .content .input {
 #back {
   cursor: pointer;
 }
-/* 
-#class-found {
-  display: none;
-} */
+
+.member-tb .row {
+  height: 60px;
+}
+
+.member-tb .row:hover {
+  background-color: #E8F5E9;
+}

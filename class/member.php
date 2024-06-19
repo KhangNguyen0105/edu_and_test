@@ -8,6 +8,8 @@
 
     // Lấy giá trị course_id từ URL
     $course_id = isset($_GET['course_id']) ? $_GET['course_id'] : '';
+    $current_user_role = $_SESSION['role'];
+    $search_term = isset($_POST['search']) ? trim($_POST['search']) : '';
 
     // Truy vấn thông tin lớp học
     if ($course_id != '') {
@@ -23,7 +25,6 @@
       $description = is_null($class_info['description']) ? '' : htmlspecialchars($class_info['description']);
     }
 
-
     // Đếm số học sinh trong lớp
     $count_student_query = "SELECT COUNT(*) as student_count FROM enrollments WHERE course_id = ?";
     $count_student_stmt = mysqli_prepare($conn, $count_student_query);
@@ -33,11 +34,34 @@
     $student_count_array = mysqli_fetch_assoc($count_student_result);
     $student_count = $student_count_array['student_count'];
     mysqli_stmt_close($count_student_stmt);
-    
+
+    // Truy vấn thông tin học sinh và số bài tập đã làm / tổng số bài tập
+    $student_query = "SELECT u.full_name, u.email, 
+                             COUNT(DISTINCT g.assignment_id) as assignments_done, 
+                             (SELECT COUNT(*) FROM assignments a WHERE a.course_id = ?) as total_assignments, 
+                             AVG(g.score) as average_grade
+                      FROM users u
+                      JOIN enrollments e ON u.user_id = e.user_id
+                      LEFT JOIN grades g ON u.user_id = g.user_id AND g.assignment_id IN (SELECT assignment_id FROM assignments WHERE course_id = ?)
+                      WHERE e.course_id = ?";
+
+    if ($search_term != '')
+      $student_query .= " AND u.full_name LIKE ?";
+
+    $student_query .= " GROUP BY u.user_id";
+
+    $student_stmt = mysqli_prepare($conn, $student_query);
+    if ($search_term != '') {
+      $like_search_term = "%" . $search_term . "%";
+      mysqli_stmt_bind_param($student_stmt, "ssss", $course_id, $course_id, $course_id, $like_search_term);
+    } else
+      mysqli_stmt_bind_param($student_stmt, "sss", $course_id, $course_id, $course_id);
+
+    mysqli_stmt_execute($student_stmt);
+    $student_result = mysqli_stmt_get_result($student_stmt);
+
     mysqli_close($conn);
   }
-
-  
 ?>
 
 <!DOCTYPE html>
@@ -135,14 +159,59 @@
         </div>
       </div>
 
-      <div class="main-content">
+      <div class="main-content" style="background-color: #fff;">
         <div class="title">
           Thành viên lớp học (<?php echo $student_count ?>)
         </div>
-
+              
         <div class="news-wrapper">
           <div class="space" style="height: 64px"></div>
           
+          <form action="" method="post">
+            <div class="search-create" style="padding: 16px">
+              <input name="search" type="text" placeholder="Tìm kiếm...">
+              <button type="submit" name="search_button">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Tìm kiếm
+              </button>
+              <?php if ($current_user_role == 1):?>
+              <a href="add.php"><i class="fa-solid fa-plus"></i> Thêm học sinh</a>
+              <?php endif; ?>
+            </div>
+          </form>
+
+          <div class="th">
+            <div class="row" style="margin-top: 0;">
+              <div class="column">Họ và tên</div>
+              <div class="column">Email</div>
+              <?php if ($current_user_role == 1):?>
+              <div class="column">Bài đã làm</div>
+              <div class="column">Điểm trung bình</div>
+              <?php endif; ?>
+            </div>
+          </div>
+          
+          <div class="tb member-tb">
+            <?php
+              while ($row = mysqli_fetch_assoc($student_result)) {
+                $full_name = htmlspecialchars($row['full_name']);
+                $email = htmlspecialchars($row['email']);
+                $assignments_done = $row['assignments_done'];
+                $total_assignments = $row['total_assignments'];
+                $average_grade = is_null($row['average_grade']) ? 'N/A' : number_format($row['average_grade'], 1);
+
+                echo '<div class="row">';
+                echo '<div class="column">' . $full_name . '</div>';
+                echo '<div class="column">' . $email . '</div>';
+                if ($current_user_role == 1) {
+                  echo '<div class="column">' . $assignments_done . '/' . $total_assignments . '</div>';
+                  echo '<div class="column">' . $average_grade . '</div>';
+                  echo '<i class="fa-solid fa-trash"></i>';
+                }
+                echo '</div>';
+              }
+            ?>
+          </div>
         </div>
       </div>
     </div>
