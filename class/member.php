@@ -36,7 +36,7 @@
     mysqli_stmt_close($count_student_stmt);
 
     // Truy vấn thông tin học sinh và số bài tập đã làm / tổng số bài tập
-    $student_query = "SELECT u.full_name, u.email, 
+    $get_all_student_query = "SELECT u.user_id, u.full_name, u.email, 
                              COUNT(DISTINCT g.assignment_id) as assignments_done, 
                              (SELECT COUNT(*) FROM assignments a WHERE a.course_id = ?) as total_assignments, 
                              AVG(g.score) as average_grade
@@ -46,19 +46,36 @@
                       WHERE e.course_id = ?";
 
     if ($search_term != '')
-      $student_query .= " AND u.full_name LIKE ?";
+      $get_all_student_query .= " AND u.full_name LIKE ?";
 
-    $student_query .= " GROUP BY u.user_id";
+    $get_all_student_query .= " GROUP BY u.user_id";
 
-    $student_stmt = mysqli_prepare($conn, $student_query);
+    $get_all_student_stmt = mysqli_prepare($conn, $get_all_student_query);
+
     if ($search_term != '') {
       $like_search_term = "%" . $search_term . "%";
-      mysqli_stmt_bind_param($student_stmt, "ssss", $course_id, $course_id, $course_id, $like_search_term);
+      mysqli_stmt_bind_param($get_all_student_stmt, "ssss", $course_id, $course_id, $course_id, $like_search_term);
     } else
-      mysqli_stmt_bind_param($student_stmt, "sss", $course_id, $course_id, $course_id);
+      mysqli_stmt_bind_param($get_all_student_stmt, "sss", $course_id, $course_id, $course_id);
 
-    mysqli_stmt_execute($student_stmt);
-    $student_result = mysqli_stmt_get_result($student_stmt);
+    mysqli_stmt_execute($get_all_student_stmt);
+    $student_result = mysqli_stmt_get_result($get_all_student_stmt);
+    mysqli_stmt_close($get_all_student_stmt);
+
+    // Xử lý xoá 1 sinh viên
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm-delete']) && isset($_POST['user_id'])) {
+      $user_id = $_POST['user_id'];
+  
+      $delete_query = "DELETE FROM enrollments WHERE user_id = ? AND course_id = ?";
+      
+      $delete_stmt = mysqli_prepare($conn, $delete_query);
+      mysqli_stmt_bind_param($delete_stmt, "ss", $user_id, $course_id);
+      
+      if (mysqli_stmt_execute($delete_stmt))
+        header('Location: member.php?course_id=' . $course_id);
+      
+      mysqli_stmt_close($delete_stmt);
+    }
 
     mysqli_close($conn);
   }
@@ -198,7 +215,8 @@
                 $email = htmlspecialchars($row['email']);
                 $assignments_done = $row['assignments_done'];
                 $total_assignments = $row['total_assignments'];
-                $average_grade = is_null($row['average_grade']) ? 'N/A' : number_format($row['average_grade'], 1);
+                $average_grade = is_null($row['average_grade']) ? 0 : number_format($row['average_grade'], 1);
+                $user_id = htmlspecialchars($row['user_id']);
 
                 echo '<div class="row">';
                 echo '<div class="column">' . $full_name . '</div>';
@@ -206,7 +224,10 @@
                 if ($current_user_role == 1) {
                   echo '<div class="column">' . $assignments_done . '/' . $total_assignments . '</div>';
                   echo '<div class="column">' . $average_grade . '</div>';
-                  echo '<i class="fa-solid fa-trash"></i>';
+                  echo '<i class="fa-solid fa-trash" 
+                          data-user-id="' . $user_id . '" 
+                          data-full-name="' . $full_name . '" 
+                          id="delete-student-' . $user_id . '"></i>';
                 }
                 echo '</div>';
               }
@@ -217,6 +238,65 @@
     </div>
   </div>
 
-  <script src="../asset/script/script.js"></script>
+  <!-- Confirm Delete Student Modal -->
+  <form action="" method="post" class="form-modal" id="confirm-delete-modal">
+    <div class="modal">
+      <div class="title">
+        Xoá học sinh
+        <i class="fa-solid fa-xmark" id="close-modal"></i>
+      </div>
+      <div class="edit-content">
+        <p id="delete-student-name"></p>
+      </div>
+      <div class="confirm">
+        <input type="hidden" name="user_id" id="user-id-to-delete">
+        <button type="submit" name="confirm-delete" id="confirm-delete-button">Đồng ý</button>
+        <button type="button" class="cancel" id="cancel-button">Thoát</button>
+      </div>
+    </div>
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const deleteButtons = document.querySelectorAll('.fa-trash');
+      deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const userId = button.getAttribute('data-user-id');
+          const fullName = button.getAttribute('data-full-name');
+          const modal = document.getElementById('confirm-delete-modal');
+          const deleteStudentName = document.getElementById('delete-student-name');
+          const userIdToDelete = document.getElementById('user-id-to-delete');
+
+          deleteStudentName.textContent = `Học sinh ${fullName} sẽ bị xoá khỏi lớp!`;
+          userIdToDelete.value = userId;
+
+          modal.style.display = 'flex'; // Hiển thị modal khi nhấn nút xoá
+        });
+      });
+
+      // Đóng modal khi nhấn nút "Thoát"
+      const cancelButton = document.getElementById('cancel-button');
+      cancelButton.addEventListener('click', function() {
+        const modal = document.getElementById('confirm-delete-modal');
+        modal.style.display = 'none'; // Ẩn modal khi nhấn nút thoát
+      });
+
+      // Đóng modal khi nhấn vào biểu tượng "x"
+      const closeModalButton = document.getElementById('close-modal');
+      closeModalButton.addEventListener('click', function() {
+        const modal = document.getElementById('confirm-delete-modal');
+        modal.style.display = 'none'; // Ẩn modal khi nhấn biểu tượng đóng
+      });
+
+      // Đóng modal khi click bên ngoài modal
+      window.addEventListener('click', function(event) {
+        const modal = document.getElementById('confirm-delete-modal');
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>

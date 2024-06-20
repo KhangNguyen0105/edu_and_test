@@ -755,3 +755,27 @@ form .content .input {
 .member-tb .row:hover {
   background-color: #E8F5E9;
 }
+
+#confirm-delete-modal .edit-content {
+  border-top: 1px solid rgb(216, 220, 240);
+  border-bottom: 1px solid rgb(216, 220, 240);;
+  padding: 8px 0;
+}
+
+#confirm-delete-modal p {
+  font-size: 14px;
+}
+
+#confirm-delete-modal .cancel {
+  margin-right: 10px;
+  background-color: rgb(224, 224, 224);
+  color: black  ;
+}
+
+#confirm-delete-modal .cancel:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+.form-modal button {
+  min-width: 100px;
+}

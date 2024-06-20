@@ -154,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <form action="" method="post">
       <div class="content">
-        <a href="">
+        <a href="index.php">
           <i class="fa-solid fa-arrow-left"></i>
           Thay đổi vai trò
         </a>
