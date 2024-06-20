@@ -62,21 +62,61 @@
     $student_result = mysqli_stmt_get_result($get_all_student_stmt);
     mysqli_stmt_close($get_all_student_stmt);
 
-    // Xử lý xoá 1 sinh viên
+    // Xử lý xoá một sinh viên
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm-delete']) && isset($_POST['user_id'])) {
       $user_id = $_POST['user_id'];
-  
-      $delete_query = "DELETE FROM enrollments WHERE user_id = ? AND course_id = ?";
       
-      $delete_stmt = mysqli_prepare($conn, $delete_query);
-      mysqli_stmt_bind_param($delete_stmt, "ss", $user_id, $course_id);
-      
-      if (mysqli_stmt_execute($delete_stmt))
-        header('Location: member.php?course_id=' . $course_id);
-      
+      // Xoá tất cả điểm của học sinh trong lớp khỏi bảng grades
+      $delete_grades_query = "DELETE FROM grades WHERE user_id = ?";
+      $delete_stmt = mysqli_prepare($conn, $delete_grades_query);
+      mysqli_stmt_bind_param($delete_stmt, "i", $user_id);
+      $grades_deleted = mysqli_stmt_execute($delete_stmt);
       mysqli_stmt_close($delete_stmt);
-    }
+      
+      // Xoá bản ghi của học sinh khỏi bảng enrollments
+      $delete_enrollments_query = "DELETE FROM enrollments WHERE user_id = ? AND course_id = ?";
+      $delete_stmt = mysqli_prepare($conn, $delete_enrollments_query);
+      mysqli_stmt_bind_param($delete_stmt, "ii", $user_id, $course_id);
+      $enrollments_deleted = mysqli_stmt_execute($delete_stmt);
+      mysqli_stmt_close($delete_stmt);
 
+      if ($enrollments_deleted && $grades_deleted) {
+        echo "<script>alert('Học sinh đã được xoá thành công.'); window.location.href='member.php?course_id=$course_id';</script>";
+      } else {
+        echo "<script>alert('Lỗi khi xoá học sinh.');</script>";
+      }
+    }
+    
+    // Xử lý thêm một học sinh
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add-student-btn'])) {
+      $student_email = $_POST['student-email'];
+      
+      // Kiểm tra xem học sinh có tồn tại trong hệ thống không
+      $query = "SELECT user_id FROM users WHERE email = ?";
+      $stmt = mysqli_prepare($conn, $query);
+      mysqli_stmt_bind_param($stmt, 's', $student_email);
+      mysqli_stmt_execute($stmt);
+      mysqli_stmt_bind_result($stmt, $student_id);
+      mysqli_stmt_fetch($stmt);
+      mysqli_stmt_close($stmt);
+
+      if ($student_id) {
+        // Học sinh tồn tại, thêm bản ghi vào bảng enrollments
+        $course_id = $_GET['course_id'];
+        $query = "INSERT INTO enrollments (course_id, user_id) VALUES (?, ?)";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 'ii', $course_id, $student_id);
+        $result = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Thành công
+        if ($result)
+          echo "<script>alert('Học sinh đã được thêm vào lớp học thành công.');
+                window.location.href = window.location.href;</script>";
+          
+      } else
+        echo "<script>alert('Không tìm thấy học sinh.');</script>";
+      }
     mysqli_close($conn);
   }
 ?>
@@ -192,7 +232,7 @@
                 Tìm kiếm
               </button>
               <?php if ($current_user_role == 1):?>
-              <a href="add.php"><i class="fa-solid fa-plus"></i> Thêm học sinh</a>
+              <a href="" id="add-student"><i class="fa-solid fa-plus"></i> Thêm học sinh</a>
               <?php endif; ?>
             </div>
           </form>
@@ -256,7 +296,23 @@
     </div>
   </form>
 
+  <form action="" method="post" class="form-modal" id="add-student-modal" >
+    <div class="modal">
+      <div class="title">
+        Thêm học sinh vào lớp
+        <i class="fa-solid fa-xmark" id="close-add-student-modal"></i>
+      </div>
+      <div class="edit-content">
+        <input type="email" name="student-email" placeholder="Email của học sinh">
+      </div>
+      <div class="confirm">
+        <button type="submit" name="add-student-btn">Thêm vào lớp</button>
+      </div>
+    </div>
+  </form>
+
   <script>
+    // Hiển thị modal và xử lý khi nhấn nút xoá học sinh
     document.addEventListener('DOMContentLoaded', function() {
       const deleteButtons = document.querySelectorAll('.fa-trash');
       deleteButtons.forEach(button => {
@@ -296,6 +352,24 @@
         }
       });
     });
+
+    // Hiển thị modal thêm học sinh
+    document.getElementById('add-student').addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('add-student-modal').style.display = 'flex';
+    });
+
+    // Đóng modal thêm học sinh
+    document.getElementById('close-add-student-modal').addEventListener('click', function() {
+      document.getElementById('add-student-modal').style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+      if (event.target === document.getElementById('add-student-modal')) {
+        this.document.getElementById('add-student-modal').style.display = 'none';
+      }
+    });
+
   </script>
 
 </body>

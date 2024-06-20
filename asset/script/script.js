@@ -117,43 +117,4 @@ window.addEventListener('click', function(event) {
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Bắt sự kiện khi nhấn nút xoá sinh viên
-  const deleteButtons = document.querySelectorAll('.fa-trash');
-  deleteButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const userId = button.getAttribute('data-user-id');
-      const fullName = button.getAttribute('data-full-name');
-      const modal = document.getElementById('confirm-delete-modal');
-      const deleteStudentName = document.getElementById('delete-student-name');
-      const userIdToDelete = document.getElementById('user-id-to-delete');
 
-      deleteStudentName.textContent = `Học sinh ${fullName} sẽ bị xoá khỏi lớp!`;
-      userIdToDelete.value = userId;
-
-      modal.style.display = 'flex'; // Hiển thị modal khi nhấn nút xoá
-    });
-  });
-
-  // Đóng modal khi nhấn nút "Thoát"
-  const cancelButton = document.getElementById('cancel-button');
-  cancelButton.addEventListener('click', function() {
-    const modal = document.getElementById('confirm-delete-modal');
-    modal.style.display = 'none'; // Ẩn modal khi nhấn nút thoát
-  });
-
-  // Đóng modal khi nhấn vào biểu tượng "x"
-  const closeModalButton = document.getElementById('close-modal');
-  closeModalButton.addEventListener('click', function() {
-    const modal = document.getElementById('confirm-delete-modal');
-    modal.style.display = 'none'; // Ẩn modal khi nhấn biểu tượng đóng
-  });
-
-  // Đóng modal khi click bên ngoài modal
-  window.addEventListener('click', function(event) {
-    const modal = document.getElementById('confirm-delete-modal');
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
-});
