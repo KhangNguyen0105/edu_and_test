@@ -35,20 +35,26 @@
   if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search_button'])) {
     $search_term = mysqli_real_escape_string($conn, $_POST['search']);
     $query_assignments = "
-      SELECT assignments.assignment_id, assignments.title, COUNT(grades.user_id) as students_completed, 
-        (SELECT COUNT(enrollments.user_id) FROM enrollments WHERE enrollments.course_id='$course_id') as total_students
+      SELECT 
+        assignments.assignment_id, 
+        assignments.title, 
+        COUNT(DISTINCT grades.user_id) AS students_completed, 
+        (SELECT COUNT(enrollments.user_id) FROM enrollments WHERE enrollments.course_id = '$course_id') AS total_students
       FROM assignments
       LEFT JOIN grades ON assignments.assignment_id = grades.assignment_id
-      WHERE assignments.course_id='$course_id' AND assignments.title LIKE '%$search_term%'
-      GROUP BY assignments.assignment_id
+      WHERE assignments.course_id = '$course_id' AND assignments.title LIKE '%$search_term%'
+      GROUP BY assignments.assignment_id 
     ";
   } else {
     $query_assignments = "
-      SELECT assignments.assignment_id, assignments.title, COUNT(grades.user_id) as students_completed, 
-        (SELECT COUNT(enrollments.user_id) FROM enrollments WHERE enrollments.course_id='$course_id') as total_students
+      SELECT 
+        assignments.assignment_id, 
+        assignments.title, 
+        COUNT(DISTINCT grades.user_id) AS students_completed, 
+        (SELECT COUNT(enrollments.user_id) FROM enrollments WHERE enrollments.course_id = '$course_id') AS total_students
       FROM assignments
       LEFT JOIN grades ON assignments.assignment_id = grades.assignment_id
-      WHERE assignments.course_id='$course_id'
+      WHERE assignments.course_id = '$course_id'
       GROUP BY assignments.assignment_id
     ";
   }
@@ -166,7 +172,7 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 Tìm kiếm
               </button>
-              <a href="add.php">
+              <a href="add.php?course_id=<?php echo $course_id; ?>">
                 <i class="fa-solid fa-plus"></i>
                 Tạo bài tập
               </a>

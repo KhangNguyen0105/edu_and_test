@@ -779,3 +779,95 @@ form .content .input {
 .form-modal button {
   min-width: 100px;
 }
+
+#homeword-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0 16px;
+  background-color: #fff;
+  height: 64px;
+  width: 100%;
+  box-shadow: rgba(30, 136, 229, 0.1) 0px 2px 4px
+}
+
+#homeword-header i {
+  margin: 0 8px;
+  color: #4E525F;
+}
+
+#homeword-header .current {
+  font-weight: 600 !important;
+  font-size: 16px;
+}
+
+#homeword-header button {
+  width: 120px;
+  background-color: rgb(92, 187, 92);
+  border-radius: 8px;
+  font-weight: 600;
+  height: 32px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+#homeword-header button:hover {
+  background-color: rgb(44, 106, 44);;
+}
+
+form #content {
+  margin-top: 64px;
+  display: flex;
+}
+
+#content .info {
+  flex: 1;
+  position: fixed;
+  left: 0;
+  width: 50%;
+}
+
+#content .questions {
+  margin-left: 50%;
+  height: 1000px;
+  border-left: 1px solid #4E525F;
+  padding: 16px;
+  width: 100%;
+}
+
+.question-text textarea {
+  width: 100%;
+  padding: 8px;
+  min-height: 150px;
+  max-height: 600px;
+}
+
+.question-text button {
+  height: 32px;
+  padding: 4px 8px;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  float: right;
+}
+
+.question-text button:hover {
+  background-color: #ccc;
+}
+
+.question {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 42px;
+}
+
+#content .info {
+  display: flex;
+  align-items: center;
+}
