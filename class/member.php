@@ -99,24 +99,42 @@
       mysqli_stmt_bind_result($stmt, $student_id);
       mysqli_stmt_fetch($stmt);
       mysqli_stmt_close($stmt);
-
+  
       if ($student_id) {
-        // Học sinh tồn tại, thêm bản ghi vào bảng enrollments
         $course_id = $_GET['course_id'];
-        $query = "INSERT INTO enrollments (course_id, user_id) VALUES (?, ?)";
-        $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, 'ii', $course_id, $student_id);
-        $result = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
+  
+        // Kiểm tra xem học sinh đã tồn tại trong lớp học chưa
+        $check_query = "SELECT enrollment_id FROM enrollments WHERE user_id = ? AND course_id = ?";
+        $check_stmt = mysqli_prepare($conn, $check_query);
+        mysqli_stmt_bind_param($check_stmt, 'ii', $student_id, $course_id);
+        mysqli_stmt_execute($check_stmt);
+        mysqli_stmt_store_result($check_stmt);
+        $num_rows = mysqli_stmt_num_rows($check_stmt);
+        mysqli_stmt_close($check_stmt);
 
-        // Thành công
-        if ($result)
-          echo "<script>alert('Học sinh đã được thêm vào lớp học thành công.');
-                window.location.href = window.location.href;</script>";
-          
-      } else
-        echo "<script>alert('Không tìm thấy học sinh.');</script>";
-      }
+        if ($num_rows > 0) {
+          // Học sinh đã tồn tại trong lớp học
+          echo "<script>alert('Học sinh đã tồn tại trong lớp học này.');</script>";
+        } else {
+          // Học sinh tồn tại, thêm bản ghi vào bảng enrollments
+          $query = "INSERT INTO enrollments (course_id, user_id) VALUES (?, ?)";
+          $stmt = mysqli_prepare($conn, $query);
+          mysqli_stmt_bind_param($stmt, 'ii', $course_id, $student_id);
+          $result = mysqli_stmt_execute($stmt);
+          mysqli_stmt_close($stmt);
+
+          // Thành công
+          if ($result) {
+            echo "<script>alert('Học sinh đã được thêm vào lớp học thành công.');
+                    window.location.href = window.location.href;</script>";
+          } else {
+            echo "<script>alert('Lỗi khi thêm học sinh vào lớp học.');</script>";
+          }
+        }
+    } else
+      // Học sinh không tồn tại
+      echo "<script>alert('Không tìm thấy học sinh.');</script>";
+    }
     mysqli_close($conn);
   }
 ?>
