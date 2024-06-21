@@ -1,3 +1,9 @@
+<?php
+
+  $course_id = isset($_GET['course_id']) ? $_GET['course_id'] : '';
+  
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +22,7 @@
     <form action="" method="post" style="display: block;">
       <div id="homeword-header">
         <div id="homework-nav">
-          <p class="prev">Bài tập</p>
+          <a href="list.php?course_id=<?php echo $course_id ?>" class="prev">Bài tập</a>
           <i class="fa-solid fa-caret-right"></i>
           <p class="current">Tạo bài tập</p>
         </div>
@@ -26,11 +32,9 @@
       <div id="content">
         <div class="info">
           <img src="https://i.pinimg.com/236x/f2/8c/07/f28c074be78a4c506b9c2b5997b965cc.jpg" alt="homework">
-          <p>Tên bài tập</p>
           <input type="text" placeholder="Tên bài tập">
-          <p>Số câu hỏi</p>
           <input type="number" placeholder="Số câu hỏi">
-          <div class="add-question">Tạo câu hỏi</div>
+          <div class="add-question" id="create-question-btn">Tạo câu hỏi</div>
         </div>
 
         <div class="questions">
@@ -49,5 +53,42 @@ D. 4
       </div>
     </form>
   </div>
+
+  <form action="" method="post" class="form-modal" id="create-question-modal">
+    <div class="modal">
+      <div class="title">
+        Tạo câu hỏi
+        <i class="fa-solid fa-xmark" id="close-modal"></i>
+      </div>
+      <div class="edit-content">
+        <textarea name="edit-content" id="edit-content"></textarea>
+      </div>
+      <div class="answers">
+        <div class="answer">A</div>
+        <div class="answer">B</div>
+        <div class="answer">C</div>
+        <div class="answer">D</div>
+      </div>
+      <div class="confirm">
+        <button type="submit" name="confirm">Hoàn thành</button>
+      </div>
+    </div>
+  </form>
+
+  <script>
+    document.getElementById('create-question-btn').addEventListener('click', function() {
+      document.getElementById('create-question-modal').style.display = 'flex';
+    });
+
+    document.getElementById('close-modal').addEventListener('click', function() {
+      document.getElementById('create-question-modal').style.display = 'none';
+    });
+
+    window.addEventListener('click', function(even) {
+      if (even.target === document.getElementById('create-question-modal'))
+        this.document.getElementById('create-question-modal').style.display = 'none';
+    });
+      
+  </script>
 </body>
 </html>

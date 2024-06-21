@@ -863,11 +863,66 @@ form #content {
 
 .question {
   width: 100%;
-  border-bottom: 1px solid #ccc;
+  /* border-bottom: 1px solid #ccc; */
   margin-bottom: 42px;
 }
 
 #content .info {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  padding-top: 32px;
+}
+
+.info .add-question,
+.info input {
+  width: 400px;
+  padding: 16px;
+  margin-top: 24px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.info input:hover {
+  border: 1px solid black;
+}
+
+.info .add-question {
+  background-color: rgb(92, 187, 92);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  color: #fff;
+}
+
+.info .add-question:hover {
+  background-color: #4CAF50;
+}
+
+.answers {
+  display: flex;
+  width: 100%;
+  margin-top: 16px;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.answers .answer {
+  display: flex;
+  justify-content: center;
+  width: 60px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.answers .answer:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.prev {
+  font-size: 16px;
 }
