@@ -97,6 +97,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../asset/css/class-style.css">
   <link rel="stylesheet" href="../asset/icon/fontawesome-free-6.5.1-web/css/all.min.css">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -107,7 +108,7 @@
     <div class="position-fixed" style="padding-bottom: 0;">
       <div class="header">
         <a href="../" class="logo" style="text-decoration: none; font-family: Lobster, sans-serif">
-          Edu & Test
+          Edu <span style="font-family: Oswald, sans-serif;">&</span> Test
         </a>
 
         <div class="nav">

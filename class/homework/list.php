@@ -8,6 +8,7 @@
 
     // Lấy giá trị course_id từ URL
     $course_id = isset($_GET['course_id']) ? $_GET['course_id'] : '';
+    $role = $_SESSION['role'];
 
     // Truy vấn thông tin lớp học
     if ($course_id != '') {
@@ -172,17 +173,24 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 Tìm kiếm
               </button>
-              <a href="add.php?course_id=<?php echo $course_id; ?>">
-                <i class="fa-solid fa-plus"></i>
-                Tạo bài tập
-              </a>
+              <?php if ($role == '1') : ?>
+                <a href="add.php?course_id=<?php echo $course_id; ?>">
+                  <i class="fa-solid fa-plus"></i>
+                  Tạo bài tập
+                </a>
+              <?php endif ?>  
             </div>
           </form>
               
           <?php
             if ($result_assignments) {
               while ($row = mysqli_fetch_assoc($result_assignments)) {
-                echo '<a href="detail.php?assignment_id=' . htmlspecialchars($row['assignment_id']) . '" class="homework">';
+                
+                if ($role == '1')
+                  echo '<a href="detail.php?course_id=' . $course_id . '&assignment_id=' . htmlspecialchars($row['assignment_id']) . '" class="homework">';
+                else if ($role == '2')
+                  echo '<a href="test.php?course_id=' . $course_id . '&assignment_id=' . htmlspecialchars($row['assignment_id']) . '" class="homework">';
+                  
                 echo '  <div class="homework-header">';
                 echo '    <p>' . htmlspecialchars($row['title']) . '</p>';
                 echo '  </div>';

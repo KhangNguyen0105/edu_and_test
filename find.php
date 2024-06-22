@@ -96,7 +96,7 @@
         <p class="title">Tham gia lớp bằng mã lớp</p>
         <p class="detail">Mã lớp gồm 4 ký tự, được giáo viên lớp đó cung cấp</p>
         <div class="input">
-          <input type="text" name="course_id" maxlength="4" minlength="4" required>
+          <input type="text" name="course_id" minlength="1" required>
         </div>
         <button type="submit" name="find_course" id="find-course">Tìm lớp</button>
         <div class="nav">

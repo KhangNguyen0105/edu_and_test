@@ -121,12 +121,12 @@
     <form action="" method="post">
       <div class="content">
         <div class="class-name">
-          <p>Tên lớp học</p>
+          <p style="display: block;">Tên lớp học</p>
           <input type="text" name="class-name" class="input" required placeholder="Cấu trúc dữ liệu và giải thuật - CNTT45B..." value="<?php echo isset($course['course_name']) ? htmlspecialchars($course['course_name']) : ''; ?>">
         </div>
 
         <div class="class-description">
-          <p>Mô tả</p>
+          <p style="display: block;">Mô tả</p>
           <textarea name="description" class="input" rows="3"><?php echo isset($course['description']) ? htmlspecialchars($course['description']) : ''; ?></textarea>
         </div>
 

@@ -327,12 +327,14 @@ form .content .input {
   right: 0;
   width: 75%;
   height: 64px;
-  line-height: 64px;
-  padding-left: 16px;
+  padding: 0 16px;
   font-weight: bold;
   font-size: 16px;
   border-bottom: 1px solid #ccc;
   background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .main-content {
@@ -925,4 +927,60 @@ form #content {
 
 .prev {
   font-size: 16px;
+}
+
+form #options {
+  flex: 2;
+  display: flex;
+  padding-left: 16px;
+  margin-bottom: 12px;
+}
+
+.title #views button,
+form #options button {
+  min-width: 100px;
+  height: 38px;
+  margin-right: 12px;
+  padding: 6px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  flex: 1;
+  cursor: pointer;
+}
+
+.title #views {
+  display: flex;
+  justify-content: center;
+}
+
+.tb button {
+  border-radius: 6px;
+  margin-right: 16px;
+  min-width: 80px;
+  height: 32px;
+  border: none;
+  cursor: pointer;
+  border: 1px solid #D8DCF0;
+  background-color: #fff;
+  font-weight: 600;
+}
+
+.tb button:hover {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.details-tb .row:hover {
+  background-color: #fff;
+}
+
+#views .current {
+  background-color: rgb(92, 187, 92);
+  color: #fff;
+}
+
+#options button.active {
+  background-color: rgb(92, 187, 92);
+  color: #fff;
 }
