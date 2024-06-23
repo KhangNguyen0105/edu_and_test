@@ -1,7 +1,16 @@
 <?php
 
-  $course_id = isset($_GET['course_id']) ? $_GET['course_id'] : '';
-  
+  session_start();
+  if (isset($_SESSION['user_id'])) {
+    $conn = mysqli_connect("localhost", "root", "", "edu_and_test");
+    if (!$conn) die("Kết nối không thành công: " . mysqli_connect_error());
+
+    $course_id = $_GET['course_id'];
+
+    
+
+    mysqli_close($conn);
+  }
 ?>
 
 <!DOCTYPE html>
@@ -38,15 +47,15 @@
         </div>
 
         <div class="questions">
-          <div class="question">
-            <div class="question-text">
-              <textarea readonly id="question-text" >Câu 1: 1 + 1 = ?
-A. 1
-B. 2
-C. 3
-D. 4
-              </textarea>
-              <button>Chỉnh sửa</button>
+          <div class="question-text" data-question="' . $count . '">
+            <p class="count">Câu ' . $count . '</p>
+            <button id="edit-question">Chỉnh sửa</button>
+            <textarea readonly id="question-text">' . $question_text . '</textarea>
+            <div class="answers" style="padding: 0 80px;">
+              <button type="button" data-answer="A">A</button>
+              <button type="button" data-answer="B">B</button>
+              <button type="button" data-answer="C">C</button>
+              <button type="button" data-answer="D">D</button>
             </div>
           </div>
         </div>

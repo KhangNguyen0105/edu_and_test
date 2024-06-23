@@ -758,12 +758,14 @@ form .content .input {
   background-color: #E8F5E9;
 }
 
+#leave-modal .edit-content,
 #confirm-delete-modal .edit-content {
   border-top: 1px solid rgb(216, 220, 240);
   border-bottom: 1px solid rgb(216, 220, 240);;
   padding: 8px 0;
 }
 
+#leave-modal p,
 #confirm-delete-modal p {
   font-size: 14px;
 }
@@ -983,4 +985,148 @@ form #options button {
 #options button.active {
   background-color: rgb(92, 187, 92);
   color: #fff;
+}
+
+#test .assignment-info {
+  width: 30%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+}
+
+.assignment-info .name {
+  padding: 16px;
+  height: 80px;
+  background-color: rgb(92, 187, 92);
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30%;
+}
+
+.assignment-info .cancel-submit {
+  padding: 16px;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  width: 30%;
+}
+
+.cancel-submit button:last-child,
+.cancel-submit button:first-child {
+  border-radius: 6px;
+  border: none;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: 10px;
+  height: 40px;
+}
+
+.cancel-submit button:first-child {
+  background-color: rgb(224, 224, 224);
+  flex: 1;
+}
+
+.cancel-submit button:first-child:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+.cancel-submit button:last-child {
+  background-color: rgb(92, 187, 92);
+  flex: 2;
+  color: #fff;
+}
+
+.cancel-submit button:last-child:hover {
+  background-color: #4CAF50;
+}
+
+#test .questions {
+  margin-top: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell {
+  border-radius: 2px;
+  width: calc(100% / 5 - 12px);
+  max-width: 2.85rem;
+  height: 2.85rem;
+  border: 2px solid rgb(92, 187, 92);
+  cursor: pointer;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 6px;
+  font-weight: 600;
+}
+
+#test .content {
+  background-color: rgb(240, 242, 245);;
+  width: 70%;
+  margin-right: 30%;
+  min-height: 100vh;
+  margin-top: 0;
+  padding: 16px;
+}
+
+.content .question-text {
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.answers {
+  padding: 0 150px;
+}
+
+.answers button {
+  width: 60px;
+  background-color: rgb(224, 224, 224);
+  font-weight: 600;
+}
+
+.answers button.selected {
+  background-color: rgb(92, 187, 92);
+  color: white;
+}
+
+.cell.selected {
+  background-color: rgb(92, 187, 92);
+  color: white;
+}
+
+.form-modal #cancel-button {
+  margin-right: 10px;
+  background-color: rgb(224, 224, 224);
+  color: #000;
+}
+
+.form-modal #cancel-button:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+#edit-question {
+  margin-bottom: 8px;
+  background-color: rgb(224, 224, 224);
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0 16px;
+}
+
+#edit-question:hover {
+  background-color: rgb(245, 245, 245);
 }
