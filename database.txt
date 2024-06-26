@@ -1,0 +1,79 @@
+CREATE TABLE `users` (
+  `user_id` int PRIMARY KEY AUTO_INCREMENT,
+  `username` varchar(255),
+  `password` varchar(255),
+  `full_name` varchar(255),
+  `email` varchar(255),
+  `role` int
+);
+
+CREATE TABLE `courses` (
+  `course_id` int PRIMARY KEY AUTO_INCREMENT,
+  `course_name` varchar(255),
+  `description` text,
+  `teacher_id` int,
+  `date_created` date
+);
+
+CREATE TABLE `enrollments` (
+  `enrollment_id` int PRIMARY KEY AUTO_INCREMENT,
+  `user_id` int,
+  `course_id` int
+);
+
+CREATE TABLE `assignments` (
+  `assignment_id` int PRIMARY KEY AUTO_INCREMENT,
+  `course_id` int,
+  `title` text,
+  `due_date` date
+);
+
+CREATE TABLE `questions` (
+  `question_id` int PRIMARY KEY AUTO_INCREMENT,
+  `content` text,
+  `correct_answer` varchar(255),
+  `max_score` double
+);
+
+CREATE TABLE `assignment_questions` (
+  `assignment_id` int AUTO_INCREMENT,
+  `question_id` int AUTO_INCREMENT,
+  PRIMARY KEY (`assignment_id`, `question_id`)
+);
+
+CREATE TABLE `grades` (
+  `grade_id` int AUTO_INCREMENT,
+  `assignment_id` int AUTO_INCREMENT,
+  `user_id` int,
+  `grade` float,
+  `submission_date` datetime,
+  PRIMARY KEY (`grade_id`, `assignment_id`)
+);
+
+CREATE TABLE `discussions` (
+  `discussion_id` int PRIMARY KEY AUTO_INCREMENT,
+  `course_id` int,
+  `user_id` int,
+  `content` text,
+  `date_created` datetime
+);
+
+ALTER TABLE `courses` ADD FOREIGN KEY (`teacher_id`) REFERENCES `users` (`user_id`);
+
+ALTER TABLE `enrollments` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+ALTER TABLE `enrollments` ADD FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`);
+
+ALTER TABLE `assignments` ADD FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`);
+
+ALTER TABLE `assignment_questions` ADD FOREIGN KEY (`assignment_id`) REFERENCES `assignments` (`assignment_id`);
+
+ALTER TABLE `assignment_questions` ADD FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`);
+
+ALTER TABLE `grades` ADD FOREIGN KEY (`assignment_id`) REFERENCES `assignments` (`assignment_id`);
+
+ALTER TABLE `grades` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+ALTER TABLE `discussions` ADD FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`);
+
+ALTER TABLE `discussions` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
