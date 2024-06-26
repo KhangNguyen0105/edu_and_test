@@ -16,26 +16,29 @@
   </style>
 </head>
 <body>
-  <form action="" method="post" class="form-modal" id="create-assignment-modal">
-    <div class="modal">
-      <div class="title">
-        Tạo bài tập
+  <div class="result-modal form-modal">
+    <div class="wrapper">
+      <div class="score">
+        <p>Kết quả</p>
+        <p>10/10</p>
       </div>
-      <div class="edit-content">
-        <div class="title">
-          <p>Nhập tên bài tập</p>
-          <input type="text" name="title">
+      <div class="result-info">
+        <div class="item">
+          <p>Nộp lúc</p>
+          <p>26 tháng 6 lúc 11:19</p>
         </div>
-        <div class="due-date">
-          <p>Hạn nộp</p>
-          <input type="datetime-local" name="due-date" id="">
+        <div class="item">
+          <p>Số câu đúng</p>
+          <p>10</p>
+        </div>
+        <div class="item">
+          <p>Số câu sai</p>
+          <p>0</p>
         </div>
       </div>
-      <div class="confirm">
-        <button type="submit" name="confirm-leave" id="confirm-delete-button">Đồng ý</button>
-        <button type="button" class="cancel" id="cancel-button">Quay lại</button>
-      </div>
+      <a href="">Đồng ý</a>
+      <!-- <a href="list.php?course_id=<?php echo $course_id?>"></a> -->
     </div>
-  </form>
+  </div>
 </body>
 </html>

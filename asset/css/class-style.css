@@ -1139,3 +1139,57 @@ form #options button {
   margin-bottom: 8px;
   font-weight: normal;
 }
+
+.result-modal .wrapper {
+  background-color: #fff;
+  width: 450px;
+  height: 350px;
+  /* padding: 32px; */
+  border-radius: 16px;
+}
+
+.result-modal .wrapper .score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background-color: #4CAF50;
+  flex-direction: column;
+  font-weight: 600;
+  color: #fff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.score p:first-child {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.result-info {
+  padding: 32px;
+}
+
+.result-info .item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.result-info .item p:last-child {
+  font-weight: 600;
+}
+
+.result-modal a {
+  float: right;
+  margin-right: 32px;
+  padding: 8px 16px;
+  background-color: rgb(92, 187, 92);
+  font-weight: 600;
+  color: #fff;
+  border-radius: 8px;
+}
+
+.result-modal a:hover {
+  background-color: #4CAF50;
+}

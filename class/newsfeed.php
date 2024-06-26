@@ -177,8 +177,9 @@
           </div>
             
           <?php if ($_SESSION['role'] == '1') : ?>
-            <a href="edit.php?course_id=' . $course_id . '" class="settings"><i class="fa-solid fa-gear"></i> Chỉnh sửa lớp học</a>
-          <?php endif ?>
+            <a href="edit.php?course_id=<?php echo $course_id; ?>" class="settings"><i class="fa-solid fa-gear"></i> Chỉnh sửa lớp học</a>
+          <?php endif; ?>
+
         </div>
       </div>
 
