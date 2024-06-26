@@ -482,8 +482,10 @@ form .content .input {
   cursor: pointer;
 }
 
-.form-modal .edit-content textarea {
-  width: 100%;
+.edit-content textarea {
+  margin-top: 24px;
+  min-width: 450px;
+  max-width: 600px;
   height: 150px;
   padding: 16px;
   border: 1px solid #ccc;
@@ -920,6 +922,7 @@ form #content {
   border: 1px solid #ccc;
   font-weight: 600;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .answers .answer:hover {
@@ -1099,7 +1102,7 @@ form #options button {
   font-weight: 600;
 }
 
-.answers button.selected {
+.answers .selected {
   background-color: rgb(92, 187, 92);
   color: white;
 }
@@ -1129,4 +1132,10 @@ form #options button {
 
 #edit-question:hover {
   background-color: rgb(245, 245, 245);
+}
+
+.edit-content p {
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: normal;
 }
