@@ -217,12 +217,10 @@
           <div class="list">  
             <a href="newsfeed.php?course_id=<?php echo $course_id?>" class="item"><i class="fa-solid fa-newspaper"></i> Bảng tin</a>
             <a href="" class="item current"><i class="fa-regular fa-user"></i> Thành viên</a>
-            <?php
-              echo '
-              <a href="homework/list.php?course_id=' . $course_id . '" class="item"><i class="fa-regular fa-file-lines"></i> Bài tập</a>
-              '
-            ?>
-            <a href="" class="item"><i class="fa-solid fa-chart-simple"></i> Bảng điểm</a>
+            <a href="homework/list.php?course_id=<?php echo $course_id ?>" class="item"><i class="fa-regular fa-file-lines"></i> Bài tập</a>
+            <?php if ($_SESSION['role'] == 1) : ?>
+              <a href="" class="item"><i class="fa-solid fa-chart-simple"></i> Bảng điểm</a>
+            <?php endif ?>
           </div>
             
           <?php if ($_SESSION['role'] == '1') : ?>
