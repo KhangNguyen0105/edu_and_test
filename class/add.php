@@ -58,7 +58,6 @@
 
         <div class="nav">
           <a href="index.php" class="current">Lớp học</a>
-          <a href="resource.php">Học liệu</a>
         </div>
 
         <div class="current-user">

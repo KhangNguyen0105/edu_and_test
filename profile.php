@@ -95,7 +95,6 @@
 
       <div class="nav">
         <a href="class/" class="current">Lớp học</a>
-        <a href="resource.php">Học liệu</a>
       </div>
 
       <div class="current-user">
@@ -113,7 +112,7 @@
         <div class="drop-down">
           <ul>
             <li>
-              <a href="../profile.php">
+              <a href="">
                 <i class="fa-solid fa-user"></i>
                 Thông tin cá nhân
               </a>

@@ -65,7 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search_button'])) {
 
         <div class="nav">
           <a href="" class="current">Lớp học</a>
-          <a href="resource.php">Học liệu</a>
         </div>
 
         <div class="current-user">
@@ -130,7 +129,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search_button'])) {
           <div class="column">Tên lớp</div>
           <div class="column">Học sinh</div>
           <div class="column">Bài tập</div>
-          <div class="column">Học liệu</div>
         </div>
       </div>
     </div>
@@ -146,13 +144,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search_button'])) {
                     courses.course_id,
                     courses.course_name,
                     COUNT(DISTINCT enrollments.user_id) AS total_students,
-                    COUNT(DISTINCT assignments.assignment_id) AS total_assignments,
-                    COUNT(DISTINCT materials.material_id) AS total_materials
+                    COUNT(DISTINCT assignments.assignment_id) AS total_assignments
                   FROM
                     courses
                   LEFT JOIN enrollments ON courses.course_id = enrollments.course_id
                   LEFT JOIN assignments ON courses.course_id = assignments.course_id
-                  LEFT JOIN materials ON courses.course_id = materials.course_id
                   WHERE
                     courses.teacher_id = ? AND courses.course_name LIKE ?
                   GROUP BY
@@ -167,13 +163,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search_button'])) {
                       courses.course_id,
                       courses.course_name,
                       COUNT(DISTINCT enrollments.user_id) AS total_students,
-                      COUNT(DISTINCT assignments.assignment_id) AS total_assignments,
-                      COUNT(DISTINCT materials.material_id) AS total_materials
+                      COUNT(DISTINCT assignments.assignment_id) AS total_assignments
                   FROM
                       courses
                   LEFT JOIN enrollments ON courses.course_id = enrollments.course_id
                   LEFT JOIN assignments ON courses.course_id = assignments.course_id
-                  LEFT JOIN materials ON courses.course_id = materials.course_id
                   WHERE
                       courses.teacher_id = ?
                   GROUP BY
@@ -190,13 +184,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search_button'])) {
                     courses.course_id,
                     courses.course_name,
                     COUNT(DISTINCT enrollments.user_id) AS total_students,
-                    COUNT(DISTINCT assignments.assignment_id) AS total_assignments,
-                    COUNT(DISTINCT materials.material_id) AS total_materials
+                    COUNT(DISTINCT assignments.assignment_id) AS total_assignments
                   FROM
                     enrollments
                   INNER JOIN courses ON enrollments.course_id = courses.course_id
                   LEFT JOIN assignments ON courses.course_id = assignments.course_id
-                  LEFT JOIN materials ON courses.course_id = materials.course_id
                   WHERE
                     enrollments.user_id = ? AND courses.course_name LIKE ?
                   GROUP BY
@@ -211,13 +203,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search_button'])) {
                     courses.course_id,
                     courses.course_name,
                     COUNT(DISTINCT enrollments.user_id) AS total_students,
-                    COUNT(DISTINCT assignments.assignment_id) AS total_assignments,
-                    COUNT(DISTINCT materials.material_id) AS total_materials
+                    COUNT(DISTINCT assignments.assignment_id) AS total_assignments
                   FROM
                     enrollments
                   INNER JOIN courses ON enrollments.course_id = courses.course_id
                   LEFT JOIN assignments ON courses.course_id = assignments.course_id
-                  LEFT JOIN materials ON courses.course_id = materials.course_id
                   WHERE
                     enrollments.user_id = ?
                   GROUP BY
@@ -242,7 +232,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search_button'])) {
                     </div>
                     <div class="column">' . $row['total_students'] . '</div>
                     <div class="column">' . $row['total_assignments'] . '</div>
-                    <div class="column">' . $row['total_materials'] . '</div>
                   </div>
                 </a>
               ';

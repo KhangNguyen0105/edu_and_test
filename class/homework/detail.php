@@ -97,7 +97,6 @@
 
         <div class="nav">
           <a href="../" class="current">Lớp học</a>
-          <a href="../../resource.php">Học liệu</a>
         </div>
 
         <div class="current-user">
