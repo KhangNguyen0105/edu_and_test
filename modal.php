@@ -16,18 +16,24 @@
   </style>
 </head>
 <body>
-  <form action="" method="post" class="form-modal" id="leave-modal">
+  <form action="" method="post" class="form-modal" id="create-assignment-modal">
     <div class="modal">
       <div class="title">
-        Lưu ý
-        <i class="fa-solid fa-xmark" id="close-modal"></i>
+        Tạo bài tập
       </div>
       <div class="edit-content">
-        <p>Bạn có muốn thoát khỏi trang làm bài hiện tại ?</p>
+        <div class="title">
+          <p>Nhập tên bài tập</p>
+          <input type="text" name="title">
+        </div>
+        <div class="due-date">
+          <p>Hạn nộp</p>
+          <input type="datetime-local" name="due-date" id="">
+        </div>
       </div>
       <div class="confirm">
         <button type="submit" name="confirm-leave" id="confirm-delete-button">Đồng ý</button>
-        <button type="button" class="cancel" id="cancel-button">Thoát</button>
+        <button type="button" class="cancel" id="cancel-button">Quay lại</button>
       </div>
     </div>
   </form>

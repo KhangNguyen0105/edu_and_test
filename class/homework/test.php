@@ -156,6 +156,9 @@
       const questions = document.querySelectorAll('.question-text');
       const cells = document.querySelectorAll('.cell');
 
+      // Xoá các đáp án được chọn khi load trang
+      localStorage.clear();
+
       cells.forEach(cell => {
         const questionNumber = cell.getAttribute('data-question');
         const selectedAnswer = localStorage.getItem(`question_${questionNumber}`);
@@ -169,7 +172,7 @@
           questions.forEach(question => {
             question.style.display = 'none';
           });
-          document.querySelector(`.question-text[data-question="${questionNumber}"]`).style.display = 'block';
+            document.querySelector(`.question-text[data-question="${questionNumber}"]`).style.display = 'block';
         });
       });
 
@@ -190,8 +193,6 @@
         });
       });
     });
-
-    
   </script>
 
 </body>

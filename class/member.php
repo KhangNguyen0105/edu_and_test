@@ -226,11 +226,9 @@
             <a href="" class="item"><i class="fa-solid fa-chart-simple"></i> Bảng điểm</a>
           </div>
             
-          <?php
-            echo '
+          <?php if ($_SESSION['role'] == '1') : ?>
             <a href="edit.php?course_id=' . $course_id . '" class="settings"><i class="fa-solid fa-gear"></i> Chỉnh sửa lớp học</a>
-            '
-          ?>
+          <?php endif ?>
         </div>
       </div>
 
