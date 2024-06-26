@@ -147,7 +147,7 @@
             <a href="../member.php?course_id=<?php echo $course_id?>" class="item"><i class="fa-regular fa-user"></i> Thành viên</a>
             <a href="" class="item current"><i class="fa-regular fa-file-lines"></i> Bài tập</a>
             <?php if ($_SESSION['role'] == 1) : ?>
-              <a href="" class="item"><i class="fa-solid fa-chart-simple"></i> Bảng điểm</a>
+              <a href="../scoretable.php?course_id=<?php echo $course_id ?>" class="item"><i class="fa-solid fa-chart-simple"></i> Bảng điểm</a>
             <?php endif ?>
           </div>
             

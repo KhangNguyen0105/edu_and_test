@@ -154,7 +154,7 @@
             <a href="../member.php?course_id=<?php echo $course_id?>" class="item"><i class="fa-regular fa-user"></i> Thành viên</a>
             <a href="" class="item current"><i class="fa-regular fa-file-lines"></i> Bài tập</a>
             <?php if ($_SESSION['role'] == 1) : ?>
-              <a href="" class="item"><i class="fa-solid fa-chart-simple"></i> Bảng điểm</a>
+              <a href="../scoretable.php?course_id=<?php echo $course_id ?>" class="item"><i class="fa-solid fa-chart-simple"></i> Bảng điểm</a>
             <?php endif ?>
           </div>
             
@@ -171,10 +171,7 @@
             <i class="fa-solid fa-caret-right" style="margin: 0 4px;"></i>
             <p style="font-size: 16px;"><?php echo $assignment_info['title'] ?></p>
           </div>
-          <div id="views">
-            <button class="current" id="score-board">Bảng Điểm</button>
-            <button id="homework-details">Đề bài</button>
-          </div>
+          
         </div>
 
         <div class="homework-wrapper">
@@ -200,7 +197,7 @@
               <div class="column">Họ và tên</div>
               <div class="column">Điểm</div>
               <div class="column">Ngày nộp</div>
-              <div class="column"></div>
+              <!-- <div class="column"></div> -->
             </div>
           </div>
 
@@ -216,7 +213,7 @@
                   echo '    <div class="column">' . $full_name . '</div>';
                   echo '    <div class="column">' . $grade . '</div>';
                   echo '    <div class="column">' . $submission_date . '</div>';
-                  echo '    <div class="column"><button>Chi tiết</button></div>';
+                  
                   echo '</div>';
                 }
               }
